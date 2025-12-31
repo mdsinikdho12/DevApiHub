@@ -1,4 +1,5 @@
 import Snippet from "@/app/Components/Snippet";
+import Image from "next/image";
 import { BookOpen, ExternalLink, Cpu } from "lucide-react";
 
 export default function ApiCard({ api }) {
@@ -7,7 +8,7 @@ export default function ApiCard({ api }) {
       <div className="p-6">
         <div className="flex items-start justify-between mb-4">
           <div className="p-2 bg-blue-500/10 rounded-lg border border-blue-500/20 group-hover:scale-110 transition-transform duration-300">
-            <Cpu className="w-6 h-6 text-blue-400" />
+            <Image src={api.icon} width={50} height={50} alt={api.name} />
           </div>
           <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500 bg-slate-800/50 px-2 py-1 rounded">
             free
