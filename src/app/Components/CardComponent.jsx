@@ -3,14 +3,14 @@ import { BookOpen, ExternalLink, Cpu } from "lucide-react";
 
 export default function ApiCard({ api }) {
   return (
-    <div className="group relative flex flex-col w-full max-w-sm h-[500px] bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-xl overflow-hidden transition-all duration-300 hover:border-blue-500/50 hover:shadow-2xl hover:shadow-blue-500/10">
+    <div className="group relative flex flex-col w-full max-w-sm h-[400px] bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-xl overflow-hidden transition-all duration-300 hover:border-blue-500/50 hover:shadow-2xl hover:shadow-blue-500/10">
       <div className="p-6">
         <div className="flex items-start justify-between mb-4">
           <div className="p-2 bg-blue-500/10 rounded-lg border border-blue-500/20 group-hover:scale-110 transition-transform duration-300">
             <Cpu className="w-6 h-6 text-blue-400" />
           </div>
           <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500 bg-slate-800/50 px-2 py-1 rounded">
-            v1.0.4
+            free
           </span>
         </div>
 
@@ -24,7 +24,7 @@ export default function ApiCard({ api }) {
       </div>
 
       <div className="px-6 py-2 flex-1">
-        <div className="relative rounded-lg bg-black/40 border border-slate-800 p-1 group-hover:border-slate-700 transition-colors">
+        <div className="relative rounded-lg    p-1 transition-colors">
           <div className="absolute top-2 right-3 flex gap-1">
             <div className="w-2 h-2 rounded-full bg-slate-700"></div>
             <div className="w-2 h-2 rounded-full bg-slate-700"></div>
