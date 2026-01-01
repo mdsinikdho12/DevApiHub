@@ -1,9 +1,17 @@
 "use client";
 import React, { useState, useRef, useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { LayoutGrid, ChevronDown, Search } from "lucide-react";
 
 const ApiSearchBar = () => {
-  const [category, setCategory] = useState("All categories");
+  const router = useRouter();
+  const params = useSearchParams();
+
+  const [search, setSearch] = useState(params.get("search") || "");
+  const [category, setCategory] = useState(
+    params.get("category") || "All categories"
+  );
+
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -25,6 +33,12 @@ const ApiSearchBar = () => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  const handleSeacrch = () => {
+    router.push(
+      `?category=${category || "All categories"}&search=${search}&page=1`
+    );
+  };
 
   return (
     <div className="relative w-full max-w-4xl mx-auto mb-10">
@@ -70,12 +84,16 @@ const ApiSearchBar = () => {
         <div className="flex-1 flex items-center px-4">
           <input
             type="text"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
             placeholder="Search for APIs..."
             className="w-full bg-transparent border-none outline-none text-slate-200 placeholder:text-slate-500 text-sm py-3 focus:ring-0"
           />
         </div>
 
-        <button className="flex items-center gap-2 bg-[#7B61FF] hover:bg-[#6344f5] text-white px-6 py-4 transition-all font-semibold text-sm active:scale-95 rounded-r-xl">
+        <button
+          onClick={handleSeacrch}
+          className="flex items-center gap-2 bg-[#7B61FF] hover:bg-[#6344f5] text-white px-6 py-4 transition-all font-semibold text-sm active:scale-95 rounded-r-xl">
           <Search size={18} />
           <span>Search</span>
         </button>
