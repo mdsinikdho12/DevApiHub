@@ -4,7 +4,7 @@ import GithubButton from "./GithubButton";
 
 function Navber() {
   return (
-    <nav className=" sticky top-4 z-[500] px-4">
+    <nav className=" sticky top-4 z-500 px-4">
       <div className="max-w-7xl flex items-center justify-between p-3  bg-[#0F1720]  mx-auto w-full  h-[80px] rounded-2xl">
         <Link href="/" className="flex items-center relative h-full ">
           <Image
