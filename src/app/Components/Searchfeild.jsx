@@ -1,15 +1,16 @@
 "use client";
 import React, { useState, useRef, useEffect } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { LayoutGrid, ChevronDown, Search } from "lucide-react";
 
 const ApiSearchBar = () => {
   const router = useRouter();
-  const params = useSearchParams();
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
 
-  const [search, setSearch] = useState(params.get("search") || "");
+  const [search, setSearch] = useState(searchParams.get("search") || "");
   const [category, setCategory] = useState(
-    params.get("category") || "All categories"
+    searchParams.get("category") || "All categories"
   );
 
   const [isOpen, setIsOpen] = useState(false);
@@ -34,10 +35,28 @@ const ApiSearchBar = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const handleSeacrch = () => {
-    router.push(
-      `?category=${category || "All categories"}&search=${search}&page=1`
-    );
+  const handleSearch = () => {
+    const params = new URLSearchParams(searchParams);
+
+    if (search) {
+      params.set("search", search);
+    } else {
+      params.delete("search");
+    }
+
+    if (category && category !== "All categories") {
+      params.set("category", category);
+    } else {
+      params.delete("category");
+    }
+
+    params.set("page", "1");
+
+    router.push(`${pathname}?${params.toString()}`, { scroll: false });
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") handleSearch();
   };
 
   return (
@@ -86,13 +105,14 @@ const ApiSearchBar = () => {
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
+            onKeyDown={handleKeyDown}
             placeholder="Search for APIs..."
             className="w-full bg-transparent border-none outline-none text-slate-200 placeholder:text-slate-500 text-sm py-3 focus:ring-0"
           />
         </div>
 
         <button
-          onClick={handleSeacrch}
+          onClick={handleSearch}
           className="flex items-center gap-2 bg-[#7B61FF] hover:bg-[#6344f5] text-white px-6 py-4 transition-all font-semibold text-sm active:scale-95 rounded-r-xl">
           <Search size={18} />
           <span>Search</span>
