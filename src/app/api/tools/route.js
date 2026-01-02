@@ -6,9 +6,17 @@ export async function POST(req) {
   try {
     await ConnectDB();
     const body = await req.json();
-    const { icon, name, description, category, apiEndpint } = body;
+    const { icon, name, description, category, apiEndpint, documentation } =
+      body;
 
-    if (!icon || !name || !description || !category || !apiEndpint) {
+    if (
+      !icon ||
+      !name ||
+      !description ||
+      !category ||
+      !apiEndpint ||
+      !documentation
+    ) {
       return NextResponse.json(
         {
           success: false,
@@ -22,6 +30,7 @@ export async function POST(req) {
       icon,
       name,
       description,
+      documentation,
       category,
       apiEndpint,
     });

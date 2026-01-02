@@ -11,6 +11,7 @@ const apiSchema = new mongoose.Schema({
     maxlength: 70,
   },
   description: { type: String, required: true, maxlength: 1000 },
+  documentation: { type: String, required: true },
   category: { type: String, required: true },
   apiEndpint: { type: String, required: true },
 });

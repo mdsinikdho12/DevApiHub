@@ -66,7 +66,7 @@ const ApiSearchBar = () => {
           <button
             type="button"
             onClick={() => setIsOpen(!isOpen)}
-            className="flex items-center gap-2 px-5 py-4 text-slate-300 hover:bg-slate-800 transition-colors border-r border-slate-800 min-w-[180px] text-left">
+            className="flex items-center gap-2 px-5 py-4 text-slate-300  transition-colors border-r border-slate-800 min-w-[180px] text-left">
             <LayoutGrid size={18} className="text-slate-400" />
             <span className="text-sm font-medium whitespace-nowrap flex-1">
               {category}
