@@ -6,20 +6,30 @@ import apimodel from "@/lib/models/apimodel";
 export async function seacrhApis({ category, search }) {
   try {
     await ConnectDB();
-    let query = {};
 
-    if (category && category !== "All categories") {
-      query.category = category;
-    }
+    const pipeline = [];
 
     if (search) {
-      query.$or = [
-        { name: { $regex: search, $options: "i" } },
-        { description: { $regex: search, $options: "i" } },
-      ];
+      pipeline.push({
+        $search: {
+          index: "apiSearch",
+          text: {
+            query: search,
+            path: ["name", "description"],
+            fuzzy: { maxEdits: 1 },
+          },
+        },
+      });
     }
 
-    const data = await apimodel.find(query).lean();
+    if (category && category !== "All categories") {
+      pipeline.push({
+        $match: { category },
+      });
+    }
+
+    pipeline.push({ $limit: 20 });
+    const data = await apimodel.aggregate(pipeline);
     return data;
   } catch (error) {
     console.log("Search api Error", error);
