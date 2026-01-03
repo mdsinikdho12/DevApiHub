@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const apiSchema = new mongoose.Schema({
   icon: {
     type: String,
-    required: true,
+    default: "https://img.icons8.com/color/48/api.png",
   },
   name: {
     type: String,

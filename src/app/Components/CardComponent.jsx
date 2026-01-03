@@ -9,9 +9,7 @@ export default function ApiCard({ api }) {
         <div className="flex items-start justify-between mb-4">
           <div className="p-2 bg-blue-500/10 rounded-lg border border-blue-500/20 group-hover:scale-110 transition-transform duration-300">
             <Image
-              src={
-                api.icon || "https://img.icons8.com/color/48/euro-exchange.png"
-              }
+              src={api.icon || "/image/default.png"}
               width={50}
               height={50}
               alt={api.name}

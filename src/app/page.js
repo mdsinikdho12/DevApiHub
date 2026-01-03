@@ -6,7 +6,6 @@ import ApiSearchBar from "./Components/Searchfeild";
 export default function Home({ searchParams }) {
   return (
     <>
-      <Navber />
       <HeroSection />
       <ApiSearchBar />
       <Allapi searchParams={searchParams} />
