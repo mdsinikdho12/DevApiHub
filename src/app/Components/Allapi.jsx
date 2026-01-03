@@ -1,6 +1,8 @@
 import ApiCard from "./CardComponent";
 import { seacrhApis } from "@/action/searchApi.action";
-import Pagination from "./Pagination";
+import Pagination from "@/app/Components/Buton/Pagination";
+
+import CardSkeleton from "./CardSkeletion";
 
 export default async function Allapi({ searchParams }) {
   const params = await searchParams;
