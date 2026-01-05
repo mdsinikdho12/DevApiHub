@@ -51,7 +51,7 @@ function HeroSection() {
         <div className="flex flex-col mt-10 sm:flex-row gap-4 mb-12 justify-center">
           <Link
             href={"/apis"}
-            className="px-6 md:px-8 py-3 bg-[#7B61FF] hover:bg-[#6A52D5] text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 active:scale-95 flex items-center justify-center gap-2 group shadow-lg hover:shadow-xl">
+            className="px-6 md:px-8 py-3 shadow-lg shadow-indigo-500/50 bg-[#7B61FF] hover:bg-[#6A52D5] text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 active:scale-95 flex items-center justify-center gap-2 group shadow-lg hover:shadow-xl">
             <Search size={20} />
             Explore APIs
             <ArrowRight
