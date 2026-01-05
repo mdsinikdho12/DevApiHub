@@ -1,5 +1,6 @@
 import Image from "next/image";
-import { Search } from "lucide-react";
+import { Search, ArrowRight, Github } from "lucide-react";
+import Link from "next/link";
 
 function HeroSection() {
   return (
@@ -47,6 +48,25 @@ function HeroSection() {
           The ultimate open-source directory to power up your next build. Stop
           searching, start building.
         </p>
+        <div className="flex flex-col mt-10 sm:flex-row gap-4 mb-12 justify-center">
+          <Link
+            href={"/apis"}
+            className="px-6 md:px-8 py-3 bg-[#7B61FF] hover:bg-[#6A52D5] text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 active:scale-95 flex items-center justify-center gap-2 group shadow-lg hover:shadow-xl">
+            <Search size={20} />
+            Explore APIs
+            <ArrowRight
+              size={18}
+              className="group-hover:translate-x-1 transition-transform"
+            />
+          </Link>
+          <Link
+            href="https://github.com/mdsinikdho12/DevApiHub"
+            target="_blank"
+            className="px-6 md:px-8 py-3 border border-white/30 hover:border-white/60 text-white font-semibold rounded-lg transition-all duration-300 hover:bg-white/10 flex items-center justify-center gap-2 backdrop-blur-sm">
+            <Github size={20} />
+            View on GitHub
+          </Link>
+        </div>
       </div>
     </div>
   );
