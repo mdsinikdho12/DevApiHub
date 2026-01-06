@@ -1,22 +1,53 @@
 "use client";
 
 import React, { useState } from "react";
-import { User, Eye, EyeOff, Lock, Mail } from "lucide-react";
+import { User, Eye, EyeOff, Lock, Mail, Loader2 } from "lucide-react";
 import Link from "next/link";
+import { signIn } from "next-auth/react";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+    setLoading(true);
+
+    try {
+      const Result = await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+      });
+
+      if (!Result.ok) {
+        setError(
+          Result.error ||
+            "Authentication failed. Please check your credentials."
+        );
+        setLoading(false);
+        return;
+      }
+
+      window.location.href = "/";
+    } catch (error) {
+      setError("An unexpected error occurred. Please try again.");
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="relative w-full flex items-center justify-center font-sans min-h-screen overflow-hidden ">
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-blue-500/10 blur-[120px] rounded-full -z-10"></div>
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#7B61FF]/10 blur-[120px] rounded-full -z-10"></div>
 
-      <div className="relative w-full max-w-sm p-8 space-y-6 bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded shadow-2xl shadow-blue-500/5">
+      <div className="relative w-full max-w-sm p-8 space-y-6 bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-2xl shadow-2xl shadow-blue-500/5">
         <div className="text-center space-y-3">
-          <div className="inline-flex p-3 bg-blue-500/10 rounded-xl border border-blue-500/20 group-hover:scale-110 transition-transform duration-300">
-            <User className="h-6 w-6 text-blue-400" />
+          <div className="inline-flex p-3 bg-[#7B61FF]/10 rounded-xl border border-[#7B61FF]/20 transition-transform duration-300 hover:scale-105">
+            <User className="h-6 w-6 text-[#7B61FF]" />
           </div>
           <div>
             <h1 className="text-2xl font-bold tracking-tight text-slate-100">
@@ -28,7 +59,13 @@ export default function Login() {
           </div>
         </div>
 
-        <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
+        {error && (
+          <div className="p-3 text-xs font-medium bg-red-500/10 border border-red-500/20 text-red-400 rounded-lg animate-in fade-in slide-in-from-top-1">
+            {error}
+          </div>
+        )}
+
+        <form className="space-y-5" onSubmit={handleSubmit}>
           <div className="space-y-2">
             <label
               htmlFor="email"
@@ -40,10 +77,11 @@ export default function Login() {
               <input
                 type="email"
                 id="email"
+                required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="name@example.com"
-                className="flex h-11 w-full rounded-lg border border-slate-800 bg-slate-950/50 pl-10 pr-3 py-2 text-sm text-slate-200 placeholder:text-slate-600 focus:outline-none focus:ring-1 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all shadow-inner"
+                className="flex h-11 w-full rounded-lg border border-slate-800 bg-slate-950/50 pl-10 pr-3 py-2 text-sm text-slate-200 placeholder:text-slate-600 focus:outline-none focus:ring-1 focus:ring-[#7B61FF]/50 transition-all shadow-inner"
               />
             </div>
           </div>
@@ -57,7 +95,7 @@ export default function Login() {
               </label>
               <a
                 href="#"
-                className="text-[11px] text-blue-400 hover:text-blue-300 transition-colors">
+                className="text-[11px] text-[#7B61FF] hover:text-[#9481ff] transition-colors">
                 Forgot?
               </a>
             </div>
@@ -66,10 +104,11 @@ export default function Login() {
               <input
                 type={showPassword ? "text" : "password"}
                 id="password"
+                required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="flex h-11 w-full rounded-lg border border-slate-800 bg-slate-950/50 pl-10 pr-10 py-2 text-sm text-slate-200 placeholder:text-slate-600 focus:outline-none focus:ring-1 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all shadow-inner"
+                className="flex h-11 w-full rounded-lg border border-slate-800 bg-slate-950/50 pl-10 pr-10 py-2 text-sm text-slate-200 placeholder:text-slate-600 focus:outline-none focus:ring-1 focus:ring-[#7B61FF]/50 transition-all shadow-inner"
               />
               <button
                 type="button"
@@ -86,9 +125,13 @@ export default function Login() {
 
           <button
             type="submit"
-            className="relative flex items-center justify-center w-full h-11 rounded-lg text-sm font-bold tracking-wide text-white bg-[#7B61FF] hover:bg-[#6a4dfa] shadow-lg shadow-blue-500/20 active:scale-[0.98] transition-all duration-200 overflow-hidden">
-            <span className="relative z-10">Sign In</span>
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full hover:animate-[shimmer_1.5s_infinite]"></div>
+            disabled={loading}
+            className="relative flex items-center justify-center w-full h-11 rounded-lg text-sm font-bold tracking-wide text-white bg-[#7B61FF] hover:bg-[#6a4dfa] shadow-lg shadow-[#7B61FF]/20 active:scale-[0.98] transition-all duration-200 disabled:opacity-70 disabled:cursor-not-allowed overflow-hidden">
+            {loading ? (
+              <Loader2 className="h-5 w-5 animate-spin" />
+            ) : (
+              <span className="relative z-10">Sign In</span>
+            )}
           </button>
         </form>
 
@@ -96,8 +139,8 @@ export default function Login() {
           <p className="text-sm text-slate-400">
             Don&apos;t have an account?{" "}
             <Link
-              href="./resistation"
-              className="font-semibold text-blue-400 hover:text-blue-300 underline underline-offset-4 decoration-blue-500/30 transition-colors">
+              href="/resistation"
+              className="font-semibold text-[#7B61FF] hover:text-[#9481ff] underline underline-offset-4 decoration-[#7B61FF]/30 transition-colors">
               Sign up
             </Link>
           </p>
