@@ -1,12 +1,15 @@
-import Navber from "./Components/Navber";
 import HeroSection from "./Components/HeroSection";
-import Allapi from "./Components/Allapi";
-import ApiSearchBar from "./Components/Searchfeild";
+import CodePreview from "./Components/CodePreview";
+import Pricing from "./Components/PricingSection";
+import Reviews from "./Components/ReviewsSection";
 
 export default function Home() {
   return (
     <>
       <HeroSection />
+      <CodePreview />
+      <Pricing />
+      <Reviews />
     </>
   );
 }

@@ -4,7 +4,7 @@ import Link from "next/link";
 
 function HeroSection() {
   return (
-    <div className="max-w-7xl mx-auto w-full relative overflow-hidden rounded-2xl md:rounded-3xl mt-6">
+    <div className="max-w-7xl mx-auto w-full bg-[#0B0F14] relative overflow-hidden rounded-2xl md:rounded-3xl mt-6">
       <Image
         src="/image/hero.png"
         width={1200}
