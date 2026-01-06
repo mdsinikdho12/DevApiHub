@@ -1,4 +1,4 @@
-import Signin1 from "../Components/UserComponent/LoginForm";
+import Signin1 from "../Components/UserComponent/Registation";
 import Image from "next/image";
 
 function page() {
