@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { createUser } from "@/action/user.action";
 import {
   User,
   Mail,
@@ -16,7 +17,7 @@ const Signin1 = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [fullName, setFullName] = useState("");
+  const [name, setFullName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [step, setStep] = useState(1);
 
@@ -30,12 +31,17 @@ const Signin1 = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
-    setTimeout(() => {
+    try {
+      setIsLoading(true);
+      const res = await createUser({ name, email, password });
+      console.log(res);
+
       setIsLoading(false);
-    }, 2000);
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
   return (
@@ -88,12 +94,12 @@ const Signin1 = () => {
                     <input
                       id="fullName"
                       type="text"
-                      value={fullName}
+                      value={name}
                       onChange={(e) => setFullName(e.target.value)}
                       placeholder="Enter your full name"
                       className="signin-input w-full px-3 py-2 bg-white dark:bg-black border border-gray-200 dark:border-gray-800 rounded-md text-sm text-gray-900 dark:text-gray-100 placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-900 dark:focus:ring-gray-100 focus:border-transparent transition-all duration-200"
                     />
-                    {fullName && (
+                    {name && (
                       <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500">
                         <Check className="w-4 h-4" />
                       </div>
@@ -103,7 +109,7 @@ const Signin1 = () => {
                 <button
                   type="button"
                   onClick={handleNext}
-                  disabled={!fullName}
+                  disabled={!name}
                   className="signin-button w-full bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 py-2 px-4 rounded-md text-sm font-medium hover:bg-gray-800 dark:hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-900 dark:focus:ring-gray-100 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-black transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
                   Next Step
                   <ArrowRight className="w-4 h-4" />
@@ -129,6 +135,7 @@ const Signin1 = () => {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="name@example.com"
+                      pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"
                       className="signin-input w-full pl-9 pr-3 py-2 bg-white dark:bg-black border border-gray-200 dark:border-gray-800 rounded-md text-sm text-gray-900 dark:text-gray-100 placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-900 dark:focus:ring-gray-100 focus:border-transparent transition-all duration-200"
                     />
                   </div>
@@ -189,7 +196,7 @@ const Signin1 = () => {
                         Name:
                       </span>
                       <span className="text-gray-900 dark:text-gray-100 font-medium">
-                        {fullName}
+                        {name}
                       </span>
                     </div>
                     <div className="flex justify-between items-center py-1">
