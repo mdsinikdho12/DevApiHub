@@ -33,3 +33,21 @@ export async function createUser({ name, email, password }) {
     };
   }
 }
+
+export async function getUserLimit(userId) {
+  try {
+    await ConnectDB();
+    const User = await usermodel.findById(userId);
+    const copeidToday = User.apiCopeyLimit.copeidToday;
+    const Dailylimit = User.apiCopeyLimit.daily;
+
+    return {
+      copeidToday,
+      Dailylimit,
+    };
+  } catch (error) {
+    return {
+      error,
+    };
+  }
+}

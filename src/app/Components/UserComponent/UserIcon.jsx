@@ -3,8 +3,11 @@
 import { useSession } from "next-auth/react";
 import { User, LogIn } from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
+import DropdownMenu from "./DropdownMenu";
 
 function UserIcon() {
+  const [isDropdownMenu, setDropdownmenu] = useState(false);
   const { data: session, status } = useSession();
 
   const getInitials = (name) => {
@@ -26,11 +29,24 @@ function UserIcon() {
     const { name } = session.user;
 
     return (
-      <div className="group relative flex items-center gap-3 cursor-pointer">
-        <div className="h-9 w-9 rounded-full bg-[#7B61FF] flex items-center justify-center text-white text-xs font-bold shadow-lg shadow-[#7B61FF]/20 border border-[#7B61FF]/50 hover:scale-105 transition-transform">
-          {getInitials(name)}
+      <>
+        <div className="group relative flex items-center gap-3 cursor-pointer">
+          <div
+            onClick={() => setDropdownmenu(!isDropdownMenu)}
+            className="h-9 w-9 rounded-full bg-[#7B61FF] flex items-center justify-center text-white text-xs font-bold shadow-lg shadow-[#7B61FF]/20 border border-[#7B61FF]/50 hover:scale-105 transition-transform">
+            {getInitials(name)}
+          </div>
         </div>
-      </div>
+        {isDropdownMenu && (
+          <>
+            <DropdownMenu session={session} />
+            <div
+              className="fixed inset-0 z-40"
+              onClick={() => setDropdownmenu(!isDropdownMenu)}
+            />{" "}
+          </>
+        )}
+      </>
     );
   }
 

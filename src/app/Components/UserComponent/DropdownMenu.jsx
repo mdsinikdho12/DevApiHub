@@ -1,193 +1,115 @@
 "use client";
 import React from "react";
 import {
-  User,
-  ShoppingBag,
-  Heart,
-  Settings,
   LogOut,
-  MapPin,
-  Bell,
-  HelpCircle,
-  Store,
   BarChart3,
+  LayoutDashboard,
+  ShieldCheck,
+  ChevronRight,
+  Zap,
 } from "lucide-react";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
 
 function DropdownMenu({ session }) {
   const userRole = session?.user?.role || "user";
+  const userEmail = session?.user?.email || "No email found";
+  const plan = session?.user?.subscriptionPlan || "free";
 
-  const baseMenuItems = [
-    {
-      icon: Bell,
-      label: "Notifications",
-      href: "/notifications",
-      divider: false,
-      roles: ["user", "seller", "admin"],
+  const roleConfig = {
+    user: {
+      title: "User Account",
+      badge: "User",
+      accent: "text-blue-400",
+      bg: "from-blue-600/20 to-slate-900",
+      items: [
+        {
+          icon: LayoutDashboard,
+          label: "My Dashboard",
+          href: "/user/dashboard",
+        },
+      ],
     },
-    {
-      icon: Settings,
-      label: "Settings",
-      href: "/settings",
-      divider: true,
-      roles: ["user", "seller", "admin"],
+    admin: {
+      title: "System Control",
+      badge: "Administrator",
+      accent: "text-rose-400",
+      bg: "from-rose-600/20 to-slate-900",
+      items: [
+        { icon: ShieldCheck, label: "Admin Panel", href: "/admin" },
+        { icon: BarChart3, label: "Analytics", href: "/admin/analytics" },
+        { icon: Zap, label: "Manage Users", href: "/admin/users" },
+      ],
     },
-    {
-      icon: HelpCircle,
-      label: "Help & Support",
-      href: "/support",
-      divider: false,
-      roles: ["user", "seller", "admin"],
-    },
-  ];
-
-  const roleMenuItems = {
-    user: [
-      {
-        icon: User,
-        label: "My Profile",
-        href: "/user/profile",
-        divider: false,
-      },
-      {
-        icon: ShoppingBag,
-        label: "My Orders",
-        href: "/orders",
-        divider: false,
-      },
-      {
-        icon: Heart,
-        label: "Wishlist",
-        href: "/wishlist",
-        divider: false,
-      },
-      {
-        icon: MapPin,
-        label: "Addresses",
-        href: "/addresses",
-        divider: false,
-      },
-    ],
-    seller: [
-      {
-        icon: Store,
-        label: "Seller Profile",
-        href: "/seller/profile",
-        divider: false,
-      },
-      {
-        icon: ShoppingBag,
-        label: "My Products",
-        href: "/seller/products",
-        divider: false,
-      },
-      {
-        icon: BarChart3,
-        label: "Analytics",
-        href: "/seller/analytics",
-        divider: false,
-      },
-      {
-        icon: ShoppingBag,
-        label: "Orders",
-        href: "/seller/orders",
-        divider: false,
-      },
-    ],
-    admin: [
-      {
-        icon: BarChart3,
-        label: "Dashboard",
-        href: "/admin/dashboard",
-        divider: false,
-      },
-      {
-        icon: User,
-        label: "Users",
-        href: "/admin/users",
-        divider: false,
-      },
-      {
-        icon: Store,
-        label: "Sellers",
-        href: "/admin/sellers",
-        divider: false,
-      },
-      {
-        icon: ShoppingBag,
-        label: "Products",
-        href: "/admin/products",
-        divider: false,
-      },
-      {
-        icon: ShoppingBag,
-        label: "Orders",
-        href: "/admin/orders",
-        divider: false,
-      },
-    ],
   };
 
-  const roleSpecificItems = roleMenuItems[userRole] || roleMenuItems.user;
-  const menuItems = [...roleSpecificItems, ...baseMenuItems];
+  const config = roleConfig[userRole] || roleConfig.user;
 
   const handleLogout = async () => {
     await signOut({ redirect: true, callbackUrl: "/" });
   };
 
-  const roleConfig = {
-    user: { color: "purple", title: "User" },
-    seller: { color: "blue", title: "Seller" },
-    admin: { color: "red", title: "Admin" },
-  };
-
-  const config = roleConfig[userRole] || roleConfig.user;
-
   return (
     <div className="relative">
-      <div className="absolute right-0 w-56 mt-3 bg-white rounded-lg shadow-xl z-50 border border-gray-100 overflow-hidden">
+      <div className="absolute right-0 w-72 mt-3 overflow-hidden rounded-2xl border border-slate-800 bg-slate-900 shadow-2xl animate-in fade-in zoom-in duration-200 z-50">
         <div
-          className={`bg-gradient-to-r from-${config.color}-500 to-${config.color}-600 text-white p-4`}>
-          <div className="flex items-center justify-between mb-2">
-            <p className="font-semibold text-sm">{session?.user?.name}</p>
-            <span className="text-xs bg-white/20 px-2 py-1 rounded-full font-medium">
-              {config.title}
+          className={`bg-gradient-to-br ${config.bg} p-5 border-b border-slate-800`}>
+          <div className="flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-800 border border-slate-700 text-white font-bold uppercase">
+              {session?.user?.name?.charAt(0) || "U"}
+            </div>
+            <div className="flex-1 overflow-hidden">
+              <p className="truncate text-sm font-bold text-white">
+                {session?.user?.name || "Hevapihub User"}
+              </p>
+              <p className="truncate text-[11px] text-slate-400">{userEmail}</p>
+            </div>
+          </div>
+
+          <div className="mt-4 flex items-center gap-2">
+            <span
+              className={`text-[10px] font-bold uppercase tracking-tighter ${config.accent} bg-white/5 px-2 py-0.5 rounded border border-white/10`}>
+              {config.badge}
+            </span>
+            <span className="text-[10px] font-bold uppercase tracking-tighter text-amber-400 bg-amber-400/10 px-2 py-0.5 rounded border border-amber-400/20">
+              Plan: {plan}
             </span>
           </div>
-          <p className="text-xs opacity-90">{session?.user?.email}</p>
         </div>
 
-        {/* Menu items */}
-        <ul className="py-2">
-          {menuItems.map((item, index) => {
-            const IconComponent = item.icon;
+        <div className="p-2">
+          {config.items.map((item, index) => {
+            const Icon = item.icon;
             return (
-              <div key={index}>
-                <Link href={item.href}>
-                  <li className="px-4 py-3 hover:bg-gray-50 transition-colors duration-150 cursor-pointer flex items-center gap-3 group">
-                    <IconComponent
-                      className={`w-4 h-4 text-gray-600 group-hover:text-${config.color}-500 transition-colors`}
-                    />
-                    <span
-                      className={`text-sm text-gray-700 group-hover:text-${config.color}-600 font-medium`}>
-                      {item.label}
-                    </span>
-                  </li>
-                </Link>
-                {item.divider && <hr className="my-2 border-gray-100" />}
-              </div>
+              <Link
+                key={index}
+                href={item.href}
+                className="group flex items-center justify-between rounded-xl px-3 py-2.5 transition-all hover:bg-slate-800/50">
+                <div className="flex items-center gap-3">
+                  <div className="rounded-lg bg-slate-800 p-1.5 text-slate-400 group-hover:text-white transition-colors">
+                    <Icon size={16} />
+                  </div>
+                  <span className="text-sm font-medium text-slate-300 group-hover:text-white">
+                    {item.label}
+                  </span>
+                </div>
+                <ChevronRight
+                  size={14}
+                  className="text-slate-600 group-hover:translate-x-0.5 transition-transform"
+                />
+              </Link>
             );
           })}
-        </ul>
+        </div>
 
-        {/* Logout button */}
-        <div className="border-t border-gray-100 p-2">
+        <div className="mt-2 border-t border-slate-800 bg-slate-950/30 p-2">
           <button
             onClick={handleLogout}
-            className="w-full px-4 py-3 flex items-center gap-3 text-red-600 hover:bg-red-50 transition-colors duration-150 rounded-md font-medium text-sm">
-            <LogOut className="w-4 h-4" />
-            Logout
+            className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold text-rose-400 transition-all hover:bg-rose-500/10 hover:text-rose-300">
+            <div className="rounded-lg bg-rose-500/10 p-1.5">
+              <LogOut size={16} />
+            </div>
+            Sign Out
           </button>
         </div>
       </div>
