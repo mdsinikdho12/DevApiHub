@@ -139,7 +139,7 @@ export default function Login() {
           <p className="text-sm text-slate-400">
             Don&apos;t have an account?{" "}
             <Link
-              href="/resistation"
+              href="/register"
               className="font-semibold text-[#7B61FF] hover:text-[#9481ff] underline underline-offset-4 decoration-[#7B61FF]/30 transition-colors">
               Sign up
             </Link>

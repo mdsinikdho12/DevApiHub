@@ -36,7 +36,7 @@ function DropdownMenu({ session }) {
       accent: "text-rose-400",
       bg: "from-rose-600/20 to-slate-900",
       items: [
-        { icon: ShieldCheck, label: "Admin Panel", href: "/admin" },
+        { icon: ShieldCheck, label: "Admin Panel", href: "/admin/dashboard" },
         { icon: BarChart3, label: "Analytics", href: "/admin/analytics" },
         { icon: Zap, label: "Manage Users", href: "/admin/users" },
       ],
