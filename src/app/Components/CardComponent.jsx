@@ -35,7 +35,7 @@ export default function ApiCard({ api }) {
             <div className="w-2 h-2 rounded-full bg-slate-700"></div>
             <div className="w-2 h-2 rounded-full bg-slate-700"></div>
           </div>
-          <Snippet command={api.apiEndpint} />
+          <Snippet apiId={api._id.toString()} />
         </div>
       </div>
 

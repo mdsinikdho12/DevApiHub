@@ -34,7 +34,6 @@ const Reviews = () => {
 
   return (
     <section className="py-24 px-4 bg-[#0B0F14] relative overflow-hidden">
-      {/* Background Ambient Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[300px] bg-[#7B61FF]/5 blur-[120px] rounded-full -z-10"></div>
 
       <div className="max-w-6xl mx-auto">
@@ -53,11 +52,9 @@ const Reviews = () => {
           {testimonials.map((review, index) => (
             <div
               key={index}
-              className="relative p-8 rounded-3xl bg-slate-900/40 border border-slate-800 backdrop-blur-sm hover:border-[#7B61FF]/40 transition-all duration-300 group">
-              {/* Quote Icon */}
+              className="relative p-8 rounded-2xl bg-slate-900/40 border border-slate-800 backdrop-blur-sm hover:border-[#7B61FF]/40 transition-all duration-300 group">
               <Quote className="absolute top-6 right-8 w-8 h-8 text-slate-800 group-hover:text-[#7B61FF]/20 transition-colors" />
 
-              {/* Rating */}
               <div className="flex gap-1 mb-6">
                 {[...Array(review.rating)].map((_, i) => (
                   <Star
@@ -67,12 +64,10 @@ const Reviews = () => {
                 ))}
               </div>
 
-              {/* Content */}
               <p className="text-slate-300 mb-8 leading-relaxed italic">
                 "{review.content}"
               </p>
 
-              {/* User Info */}
               <div className="flex items-center gap-4">
                 <div
                   className={`h-12 w-12 rounded-full ${review.color} flex items-center justify-center text-white font-bold shadow-lg ring-2 ring-slate-800`}>
@@ -91,7 +86,6 @@ const Reviews = () => {
           ))}
         </div>
 
-        {/* Bottom Call to Action */}
         <div className="mt-16 text-center">
           <div className="inline-flex items-center gap-2 px-6 py-2 rounded-full bg-slate-900/80 border border-slate-800 text-slate-400 text-sm">
             <span className="flex -space-x-2">

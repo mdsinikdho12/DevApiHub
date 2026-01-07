@@ -66,7 +66,7 @@ const CodePreview = () => {
                 ].map((item) => (
                   <li key={item.label} className="flex gap-3">
                     <div className="flex-shrink-0 mt-1">
-                      <div className="w-2 h-2 rounded-full bg-gradient-to-r from-[#7B61FF] to-blue-400" />
+                      <div className="w-2 h-2 rounded bg-gradient-to-r from-[#7B61FF] to-blue-400" />
                     </div>
                     <div>
                       <p className="text-slate-300 text-sm font-medium">
@@ -81,9 +81,9 @@ const CodePreview = () => {
           </div>
 
           <div className="relative">
-            <div className="absolute -inset-1 bg-gradient-to-r from-[#7B61FF]/30 via-blue-500/30 to-[#7B61FF]/30 rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-1000 -z-10"></div>
+            <div className="absolute -inset-1 bg-gradient-to-r from-[#7B61FF]/30 via-blue-500/30 to-[#7B61FF]/30 rounded blur opacity-0 group-hover:opacity-100 transition duration-1000 -z-10"></div>
 
-            <div className="bg-gradient-to-b from-slate-900 to-slate-950 rounded-2xl border border-slate-800/50 shadow-2xl overflow-hidden backdrop-blur-xl">
+            <div className="bg-gradient-to-b from-slate-900 to-slate-950 rounded border border-slate-800/50 shadow-2xl overflow-hidden backdrop-blur-xl">
               <div className="flex items-center justify-between px-5 py-4 bg-gradient-to-r from-slate-900/80 to-slate-800/50 border-b border-slate-800/50">
                 <div className="flex gap-2">
                   <div className="w-3 h-3 rounded-full bg-red-500/30 border border-red-500/50" />
