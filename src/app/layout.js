@@ -11,6 +11,7 @@ const geistSans = Geist({
 const hindSiliguri = Hind_Siliguri({
   weight: ["400", "500", "600", "700"],
   subsets: ["bengali", "latin"],
+  variable: "--font-hind",
 });
 
 const geistMono = Geist_Mono({

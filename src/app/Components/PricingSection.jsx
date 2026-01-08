@@ -26,7 +26,7 @@ const Pricing = () => {
     },
     {
       name: "Pro",
-      price: "9",
+      price: "1",
       description: "Best for professional developers",
       features: [
         {
@@ -124,7 +124,6 @@ const Pricing = () => {
         ))}
       </div>
 
-      {/* Trust Badge */}
       <p className="text-center text-slate-500 text-xs mt-12">
         Secure payment processing. Cancel anytime.
       </p>
