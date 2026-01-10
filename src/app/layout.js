@@ -2,6 +2,7 @@ import { Geist, Geist_Mono, Hind_Siliguri } from "next/font/google";
 import "./globals.css";
 import Navbar from "./Components/Navber";
 import { AuthProvider } from "./providers/Providers";
+import { WebVitals } from "./web-vitals";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
